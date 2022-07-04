@@ -5,7 +5,13 @@ Use Fetching or Reader-interfaces.
 
 An implementation with channels is usually an order of magnitude slower than the implementation with fetching.
 
-```func DataChannel() (chan Data)``` vs ```func FetchData(fn func(Data))```
+```
+func DataChannel() (chan Data)
+```
+vs 
+```
+func FetchData(fn func(Data))
+```
 
 
 

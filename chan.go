@@ -6,6 +6,7 @@ import (
 	"io"
 )
 
+// LinesChannel returns channel with read lines and error-channel
 func LinesChannel(f io.Reader) (lines chan []byte, errors chan error) {
 	lines, errors = make(chan []byte), make(chan error)
 	go func() {
@@ -27,6 +28,7 @@ func LinesChannel(f io.Reader) (lines chan []byte, errors chan error) {
 	return lines, errors
 }
 
+// CSVChannel returns channel with CSV-values of read CSV-line and error-channel
 func CSVChannel(f io.Reader) (chValues chan [][]byte, chErrors chan error) {
 	chValues, chErrors = make(chan [][]byte), make(chan error)
 	go func() {

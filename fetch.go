@@ -6,10 +6,11 @@ import (
 	"io"
 )
 
-func FetchLines(f io.Reader, fn func(line []byte) error) error {
-	r := bufio.NewReader(f)
+// FetchLines fetches lines from given reader
+func FetchLines(r io.Reader, fn func(line []byte) error) error {
+	buf := bufio.NewReader(r)
 	for {
-		line, err := r.ReadSlice('\n')
+		line, err := buf.ReadSlice('\n')
 		eof := err == io.EOF
 		if eof || err == nil {
 			err = fn(bytes.TrimSpace(line))
@@ -20,8 +21,9 @@ func FetchLines(f io.Reader, fn func(line []byte) error) error {
 	}
 }
 
-func FetchCSV(f io.Reader, fn func(values [][]byte) error) error {
-	return FetchLines(f, func(line []byte) error {
+// FetchCSV fetches CSV-values from given reader (CSV-file)
+func FetchCSV(r io.Reader, fn func(values [][]byte) error) error {
+	return FetchLines(r, func(line []byte) error {
 		return fn(csvValues(line))
 	})
 }
